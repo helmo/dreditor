@@ -2563,6 +2563,35 @@ Drupal.behaviors.dreditorIssueMarkAsRead = function (context) {
 };
 
 /**
+ * Attach mark ALL as read to project issue tables.
+ */
+Drupal.behaviors.dreditorMarkAllAsRead = function (context) {
+  $('table.project-issue', context).once('dreditor-issuemarkallasread', function () {
+    $tmp = $('<a href="#" class="dreditor-mark-all-as-read">Mark ALL as read</a>');
+    $tmp.click(function () {
+      $('.marker').each(function () {
+        var $link = $(this).prev('a');
+        $.ajax({
+          // The actual HTML page output is irrelevant, so denote that by using
+          // the appropriate HTTP method.
+          type: 'HEAD',
+          url: $link.attr('href'),
+          complete: function () {
+            $marker.remove();
+          }
+        });
+      });
+      // Refresh the page to get rid of all updated / x new markup.
+      // TODO: this should happen after all requests from above are finished...
+      //location.reload(true);
+    });
+
+    // Insert after the pager
+    $('.pager').after($tmp);
+  });
+};
+
+/**
  * Attach issue count to project issue tables and hide fixed/needs more info issues without update marker.
  */
 Drupal.behaviors.dreditorIssueCount = function (context) {
