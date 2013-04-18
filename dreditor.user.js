@@ -2570,7 +2570,8 @@ Drupal.behaviors.dreditorMarkAllAsRead = function (context) {
     $tmp = $('<a href="#" class="dreditor-mark-all-as-read">Mark ALL as read</a>');
     $tmp.click(function () {
       $('.marker').each(function () {
-        var $link = $(this).prev('a');
+        var $marker = $(this);
+        var $link = $marker.prev('a');
         $.ajax({
           // The actual HTML page output is irrelevant, so denote that by using
           // the appropriate HTTP method.
