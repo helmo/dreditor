@@ -2588,7 +2588,7 @@ Drupal.behaviors.dreditorMarkAllAsRead = function (context) {
     });
 
     // Insert after the pager
-    $('.pager').after($tmp);
+    $('#feeds').after($tmp);
   });
 };
 
